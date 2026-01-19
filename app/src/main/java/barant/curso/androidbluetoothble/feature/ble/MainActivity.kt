@@ -1,4 +1,4 @@
-package barant.curso.androidbluetoothble
+package barant.curso.androidbluetoothble.feature.ble
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
