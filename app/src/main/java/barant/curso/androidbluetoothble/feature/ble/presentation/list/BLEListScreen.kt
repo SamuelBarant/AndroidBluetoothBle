@@ -3,8 +3,10 @@ package barant.curso.androidbluetoothble.feature.ble.presentation.list
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BluetoothAudio
+import androidx.compose.material.icons.filled.DeviceHub
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.*
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,6 +19,7 @@ import barant.curso.androidbluetoothble.feature.ble.presentation.model.DeviceTyp
 
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BLEListScreen() {
 
@@ -46,18 +49,19 @@ fun BLEListScreen() {
                 NavigationBarItem(
                     selected = false,
                     onClick = { },
-                    icon = { Icon(Icons.Default.List, contentDescription = null) },
-                    label = { Text("LIST") }
+                    icon = { Icon(Icons.Default.DeviceHub, contentDescription = null) },
+                    label = { Text("PANEL") }
                 )
             }
         }
-    ) { padding ->
-        Box(modifier = Modifier.padding(padding)) {
-            GenericList(
-                items = mockDevices,
-                content = { device -> BLEDeviceCard(device = device) },
-                title = stringResource(id = R.string.list_section_list_label)
-            )
+    ) { paddingValues ->
+        val isLoadingMock = true
+        GenericList(
+            modifier = Modifier.padding(paddingValues),
+            items = mockDevices,
+            title = "Dispositivos BLE",
+        ) { device ->
+            BLEDeviceCard(device)
         }
     }
 }
