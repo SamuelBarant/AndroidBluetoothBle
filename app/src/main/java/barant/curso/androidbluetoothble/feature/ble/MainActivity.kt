@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import barant.curso.androidbluetoothble.core.ui.theme.AndroidBluetoothBleTheme
+import barant.curso.androidbluetoothble.feature.ble.presentation.detail.DetailScreen
 import barant.curso.androidbluetoothble.feature.ble.presentation.list.BLEListScreen
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidBluetoothBleTheme {
-                BLEListScreen()
+                DetailScreen()
             }
         }
     }

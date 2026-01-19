@@ -14,6 +14,20 @@ val Typography = Typography(
         letterSpacing = 2.sp,
         color = TextWhite
     ),
+    titleMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp,
+        letterSpacing = 2.sp,
+        color = TextWhite
+    ),
+    titleSmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 19.sp,
+        letterSpacing = 2.sp,
+        color = TextWhite
+    ),
     bodyMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,

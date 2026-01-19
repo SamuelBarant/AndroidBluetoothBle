@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 fun AppTopBar(
     title: String,
     navigationIcon: ImageVector? = null,
-    icon: ImageVector,
+    icon: ImageVector? = null,
     onNavigationClick: (() -> Unit)? = null
 ) {
     TopAppBar(
@@ -23,12 +23,14 @@ fun AppTopBar(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Icon(
-                    modifier = Modifier.padding(end = 5.dp).size(30.dp),
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.secondary
-                )
+                if (icon != null){
+                    Icon(
+                        modifier = Modifier.padding(end = 5.dp).size(30.dp),
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.secondary
+                    )
+                }
                 Text(title)
             }
         },

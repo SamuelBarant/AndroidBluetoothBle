@@ -9,5 +9,7 @@ data class BLEDevice(
     val name: String,
     val mac: String,
     val signal: Int,
-    val type: DeviceType
+    val type: DeviceType,
+    val mtu: Int,
+    val isConnected: Boolean = false
 )

@@ -5,4 +5,18 @@
     <string name="list_section">LIST</string>
     <string name="list_section_title">DISCOVERY</string>
     <string name="list_section_list_label">NEARBY DEVICES</string>
+
+    <string name="detail_section">HUB</string>
+    <string name="detail_section_title">CONTROL PANEL</string>
+    <string name="detail_section_detail_status1">CONNECTED</string>
+    <string name="detail_section_detail_status2">DISCONNECTED</string>
+    <string name="detail_section_detail_character1">SIGNAL STRENGTH</string>
+    <string name="detail_section_detail_character2">MAC ADDRESS</string>
+    <string name="detail_section_detail_character3">SERVICE UUID</string>
+    <string name="detail_section_detail_character4">MTU SIZE</string>
+    <string name="detail_section_detail_function1">ON</string>
+    <string name="detail_section_detail_function2">OFF</string>
+    <string name="detail_section_detail_action1">CONNECT DEVICE</string>
+    <string name="detail_section_detail_action2">DISCONNECTED DEVICE</string>
+    <string name="detail_section_detail_character">CHARACTERISTICS</string>
 </resources>
