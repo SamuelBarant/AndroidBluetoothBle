@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidBluetoothBle</string>
+
+
+    <string name="list_section">LIST</string>
+    <string name="list_section_title">DISCOVERY</string>
+    <string name="list_section_list_label">NEARBY DEVICES</string>
 </resources>
