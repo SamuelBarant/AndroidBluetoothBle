@@ -1,4 +1,4 @@
-package barant.curso.androidbluetoothble.feature.ble.presentation.model
+package barant.curso.androidbluetoothble.feature.ble.domain
 
 enum class DeviceType {
     SOUND, SECURITY, HEALTH, SENSOR, OTHER

@@ -13,8 +13,8 @@ import barant.curso.androidbluetoothble.R
 import barant.curso.androidbluetoothble.core.ui.components.AppTopBar
 import barant.curso.androidbluetoothble.core.ui.components.GenericList
 import barant.curso.androidbluetoothble.feature.ble.presentation.components.BLEDeviceCard
-import barant.curso.androidbluetoothble.feature.ble.presentation.model.BLEDevice
-import barant.curso.androidbluetoothble.feature.ble.presentation.model.DeviceType
+import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.DeviceType
 
 
 

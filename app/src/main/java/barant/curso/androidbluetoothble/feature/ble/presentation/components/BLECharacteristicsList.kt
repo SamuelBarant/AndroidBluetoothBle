@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import barant.curso.androidbluetoothble.R
-import barant.curso.androidbluetoothble.feature.ble.presentation.model.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
 
 @Composable
 fun CharacteristicsList(

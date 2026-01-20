@@ -10,8 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
-import barant.curso.androidbluetoothble.feature.ble.presentation.model.BLEDevice
-import barant.curso.androidbluetoothble.feature.ble.presentation.model.DeviceType
+import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.DeviceType
 
 @Composable
 fun BLEDeviceCard(

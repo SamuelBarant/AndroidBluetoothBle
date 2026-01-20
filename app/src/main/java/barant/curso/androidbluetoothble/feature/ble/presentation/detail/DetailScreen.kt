@@ -1,7 +1,6 @@
 package barant.curso.androidbluetoothble.feature.ble.presentation.detail
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import barant.curso.androidbluetoothble.R
 import barant.curso.androidbluetoothble.core.ui.components.AppTopBar
 import barant.curso.androidbluetoothble.feature.ble.presentation.components.CharacteristicsList
-import barant.curso.androidbluetoothble.feature.ble.presentation.model.BLEDevice
-import barant.curso.androidbluetoothble.feature.ble.presentation.model.DeviceType
+import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.DeviceType
 
 @Composable
 fun DetailScreen() {
