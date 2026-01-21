@@ -1,4 +1,4 @@
-package barant.curso.androidbluetoothble.feature.ble.domain.useCase
+package barant.curso.androidbluetoothble.feature.ble.domain.useCase.scanner
 
 import android.util.Log
 import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice

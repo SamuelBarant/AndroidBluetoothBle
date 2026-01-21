@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
-import barant.curso.androidbluetoothble.feature.ble.domain.useCase.BleStartScannerUseCase
-import barant.curso.androidbluetoothble.feature.ble.domain.useCase.BleStopScannerUseCase
+import barant.curso.androidbluetoothble.feature.ble.domain.useCase.scanner.BleStartScannerUseCase
+import barant.curso.androidbluetoothble.feature.ble.domain.useCase.scanner.BleStopScannerUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

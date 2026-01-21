@@ -1,6 +1,5 @@
-package barant.curso.androidbluetoothble.feature.ble.domain.useCase
+package barant.curso.androidbluetoothble.feature.ble.domain.useCase.scanner
 
-import android.bluetooth.BluetoothDevice
 import barant.curso.androidbluetoothble.feature.ble.domain.repository.BleRepository
 
 class BleStopScannerUseCase(

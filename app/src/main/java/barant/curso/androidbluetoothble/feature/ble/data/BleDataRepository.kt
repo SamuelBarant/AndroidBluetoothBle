@@ -1,17 +1,23 @@
 package barant.curso.androidbluetoothble.feature.ble.data
 
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothGattCharacteristic
 import android.util.Log
+import barant.curso.androidbluetoothble.feature.ble.data.gatt.BleGattDataSource
 import barant.curso.androidbluetoothble.feature.ble.data.permissions.BlePermissionDataSource
 import barant.curso.androidbluetoothble.feature.ble.data.scanner.BleScannerDataSource
 import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceConnectionState
 import barant.curso.androidbluetoothble.feature.ble.domain.repository.BleRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeout
 import java.lang.Exception
+import java.util.UUID
 
 class BleDataRepository (
     private val permissions: BlePermissionDataSource,
-    private val scanner: BleScannerDataSource
+    private val scanner: BleScannerDataSource,
+    private val gatt: BleGattDataSource
 ): BleRepository{
     override suspend fun checkPermissions(): Result<Map<String, Boolean>> {
         return try {
@@ -52,4 +58,22 @@ class BleDataRepository (
             Result.failure(e)
         }
     }
+
+    override suspend fun connect(device: BluetoothDevice): DeviceConnectionState {
+        return gatt.connect(device)
+    }
+
+    override suspend fun discoverServices() = gatt.discoverServices()
+
+    override suspend fun readCharacteristic(characteristic: BluetoothGattCharacteristic) =
+        gatt.readCharacteristic(characteristic)
+
+    override suspend fun writeCharacteristic(characteristic: BluetoothGattCharacteristic, data: ByteArray) =
+        gatt.writeCharacteristic(characteristic, data)
+
+    override fun disconnect() = gatt.disconnect()
+
+    override fun getCharacteristic(serviceUuid: UUID, characteristicUuid: UUID) =
+        gatt.getCharacteristic(serviceUuid, characteristicUuid)
+
 }
