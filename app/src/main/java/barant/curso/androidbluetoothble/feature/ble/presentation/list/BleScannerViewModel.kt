@@ -1,10 +1,9 @@
 package barant.curso.androidbluetoothble.feature.ble.presentation.list
 
-import android.bluetooth.BluetoothDevice
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.BleStartScannerUseCase
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.BleStopScannerUseCase
 import kotlinx.coroutines.flow.MutableStateFlow

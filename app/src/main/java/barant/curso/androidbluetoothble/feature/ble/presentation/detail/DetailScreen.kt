@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import barant.curso.androidbluetoothble.R
 import barant.curso.androidbluetoothble.core.ui.components.AppTopBar
 import barant.curso.androidbluetoothble.feature.ble.presentation.components.CharacteristicsList
-import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
-import barant.curso.androidbluetoothble.feature.ble.domain.DeviceType
+import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceType
 
 @Composable
 fun DetailScreen() {

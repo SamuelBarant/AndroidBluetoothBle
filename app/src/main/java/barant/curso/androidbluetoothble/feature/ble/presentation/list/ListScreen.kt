@@ -12,14 +12,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import barant.curso.androidbluetoothble.R
 import barant.curso.androidbluetoothble.core.ui.components.AppTopBar
 import barant.curso.androidbluetoothble.core.ui.components.ErrorBox
 import barant.curso.androidbluetoothble.core.ui.components.GenericList
 import barant.curso.androidbluetoothble.feature.ble.presentation.components.BLEDeviceCard
-import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
-import barant.curso.androidbluetoothble.feature.ble.domain.DeviceType
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

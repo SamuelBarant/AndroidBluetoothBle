@@ -1,10 +1,9 @@
 package barant.curso.androidbluetoothble.feature.ble.data
 
-import android.bluetooth.BluetoothDevice
 import android.util.Log
 import barant.curso.androidbluetoothble.feature.ble.data.permissions.BlePermissionDataSource
 import barant.curso.androidbluetoothble.feature.ble.data.scanner.BleScannerDataSource
-import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
 import barant.curso.androidbluetoothble.feature.ble.domain.repository.BleRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeout

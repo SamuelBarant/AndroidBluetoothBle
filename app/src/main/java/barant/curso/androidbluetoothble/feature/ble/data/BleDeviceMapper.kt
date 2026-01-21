@@ -1,9 +1,8 @@
 package barant.curso.androidbluetoothble.feature.ble.data
 
 import android.bluetooth.BluetoothDevice
-import android.bluetooth.le.ScanResult
-import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
-import barant.curso.androidbluetoothble.feature.ble.domain.DeviceType
+import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceType
 
 fun BluetoothDevice.toUi(signal: Int = 0, mtu: Int = 23): BLEDevice {
     val uuid = this.uuids?.firstOrNull()?.uuid?.toString() ?: "unknown"

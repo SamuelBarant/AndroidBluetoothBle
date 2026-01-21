@@ -1,7 +1,6 @@
 package barant.curso.androidbluetoothble.feature.ble.domain.repository
 
-import android.bluetooth.BluetoothDevice
-import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
 
 interface BleRepository {
     suspend fun checkPermissions(): Result<Map<String, Boolean>>
