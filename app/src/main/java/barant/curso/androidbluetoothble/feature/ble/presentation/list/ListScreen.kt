@@ -68,8 +68,7 @@ fun BLEListScreen() {
                     title = "Dispositivos BLE"
                 ) { device ->
                     BLEDeviceCard(
-                        device = device,
-                        onClick =
+                        device = device
                     )
                 }
             }

@@ -1,17 +1,22 @@
 package barant.curso.androidbluetoothble.feature.ble.data.gatt
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.bluetooth.*
 import android.content.Context
+import androidx.annotation.RequiresPermission
 import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceConnectionState
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.UUID
 import kotlin.coroutines.resume
 
-class BleGattDataSource(private val context: Context) {
+class BleGattDataSource(
+    private val context: Context) {
 
     private var gatt: BluetoothGatt? = null
 
     /** Conecta al dispositivo y espera hasta que se conecte o falle */
+    @SuppressLint("MissingPermission")
     suspend fun connect(device: BluetoothDevice): DeviceConnectionState =
         suspendCancellableCoroutine { cont ->
 
@@ -58,6 +63,7 @@ class BleGattDataSource(private val context: Context) {
         }
 
     /** Descubre servicios de forma suspend */
+    @SuppressLint("MissingPermission")
     suspend fun discoverServices(): List<BluetoothGattService> =
         suspendCancellableCoroutine { cont ->
             gatt?.let { g ->
@@ -71,6 +77,7 @@ class BleGattDataSource(private val context: Context) {
         }
 
     /** Leer característica de forma suspend */
+    @SuppressLint("MissingPermission")
     suspend fun readCharacteristic(characteristic: BluetoothGattCharacteristic): ByteArray =
         suspendCancellableCoroutine { cont ->
             gatt?.let { g ->
@@ -88,6 +95,7 @@ class BleGattDataSource(private val context: Context) {
         }
 
     /** Escribir característica de forma suspend */
+    @SuppressLint("MissingPermission")
     suspend fun writeCharacteristic(characteristic: BluetoothGattCharacteristic, data: ByteArray): Boolean =
         suspendCancellableCoroutine { cont ->
             gatt?.let { g ->
@@ -105,6 +113,7 @@ class BleGattDataSource(private val context: Context) {
             } ?: cont.resume(false)
         }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     fun disconnect() {
         gatt?.disconnect()
         gatt?.close()

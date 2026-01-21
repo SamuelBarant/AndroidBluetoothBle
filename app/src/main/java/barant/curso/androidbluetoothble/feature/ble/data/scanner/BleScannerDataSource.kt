@@ -1,5 +1,6 @@
 package barant.curso.androidbluetoothble.feature.ble.data.scanner
 
+import android.Manifest
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.ScanCallback
@@ -7,6 +8,7 @@ import android.bluetooth.le.ScanResult
 import android.bluetooth.le.ScanSettings
 import android.content.Context
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +20,8 @@ import kotlinx.coroutines.launch
 
 class BleScannerDataSource (
     context: Context,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher
+
 ){
     private var onConnect: ((BluetoothDevice) -> Unit)? = null
 
@@ -49,6 +52,7 @@ class BleScannerDataSource (
         }
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
     fun startScan(){
         if (_scanning.value) return
         if (!adapter.isEnabled) return
@@ -66,6 +70,7 @@ class BleScannerDataSource (
         }
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
     fun stopScan(){
         if (!_scanning.value) return
         _scanning.value = false

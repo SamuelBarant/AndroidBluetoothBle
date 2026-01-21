@@ -1,8 +1,10 @@
 package barant.curso.androidbluetoothble.feature.ble.data
 
+import android.Manifest
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGattCharacteristic
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import barant.curso.androidbluetoothble.feature.ble.data.gatt.BleGattDataSource
 import barant.curso.androidbluetoothble.feature.ble.data.permissions.BlePermissionDataSource
 import barant.curso.androidbluetoothble.feature.ble.data.scanner.BleScannerDataSource
@@ -34,6 +36,7 @@ class BleDataRepository (
         }
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
     override suspend fun startScan(): Result<List<BLEDevice>> {
         return try {
             scanner.startScan()
@@ -50,6 +53,7 @@ class BleDataRepository (
         }
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
     override suspend fun stopScan(): Result<Boolean> {
         return try {
             scanner.stopScan()
@@ -71,6 +75,7 @@ class BleDataRepository (
     override suspend fun writeCharacteristic(characteristic: BluetoothGattCharacteristic, data: ByteArray) =
         gatt.writeCharacteristic(characteristic, data)
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     override fun disconnect() = gatt.disconnect()
 
     override fun getCharacteristic(serviceUuid: UUID, characteristicUuid: UUID) =

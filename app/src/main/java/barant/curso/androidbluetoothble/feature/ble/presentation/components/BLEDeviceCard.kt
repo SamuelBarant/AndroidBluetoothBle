@@ -18,14 +18,12 @@ import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceType
 fun BLEDeviceCard(
     device: BLEDevice,
     modifier: Modifier = Modifier,
-    onClick: (BLEDevice) -> Unit = {}
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
-            .border(0.5.dp, Color.White, MaterialTheme.shapes.small)
-            .clickable {onClick(device)},
+            .border(0.5.dp, Color.White, MaterialTheme.shapes.small),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         )
