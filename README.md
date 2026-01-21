@@ -46,6 +46,3 @@ Este proyecto sirve como introducción práctica a:
 - Envío de datos desde la app
 - Recepción y procesamiento de datos en Arduino
 - Control de un LED desde la aplicación
-
-## 📂 Estructura del proyecto
-
