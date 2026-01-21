@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import barant.curso.androidbluetoothble.core.ui.theme.AndroidBluetoothBleTheme
 import barant.curso.androidbluetoothble.feature.ble.presentation.detail.DetailScreen
 import barant.curso.androidbluetoothble.feature.ble.presentation.list.BLEListScreen
+import barant.curso.androidbluetoothble.feature.ble.presentation.permissions.PermissionScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidBluetoothBleTheme {
-                DetailScreen()
+                PermissionScreen()
             }
         }
     }
