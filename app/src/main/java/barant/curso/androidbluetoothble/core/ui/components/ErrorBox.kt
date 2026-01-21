@@ -18,14 +18,14 @@ fun ErrorBox(
 ){
     if (errorLabel.isNotEmpty()) {
         Box(
-            modifier = modifier.padding(16.dp).fillMaxSize().background(MaterialTheme.colorScheme.primary),
+            modifier = modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                modifier = Modifier.align(Alignment.Center),
+                modifier = Modifier.align(Alignment.Center).padding(10.dp),
                 text = errorLabel,
                 style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.onBackground
             )
         }
     }
