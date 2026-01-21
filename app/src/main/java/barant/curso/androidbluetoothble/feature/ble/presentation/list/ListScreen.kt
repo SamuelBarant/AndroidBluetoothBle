@@ -16,14 +16,19 @@ import barant.curso.androidbluetoothble.R
 import barant.curso.androidbluetoothble.core.ui.components.AppTopBar
 import barant.curso.androidbluetoothble.core.ui.components.ErrorBox
 import barant.curso.androidbluetoothble.core.ui.components.GenericList
+import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
 import barant.curso.androidbluetoothble.feature.ble.presentation.components.BLEDeviceCard
+import barant.curso.androidbluetoothble.feature.ble.presentation.detail.BleGattViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BLEListScreen() {
+fun BLEListScreen(
+    navToDetail: (BLEDevice) -> Unit
+) {
 
     val viewModel: BleScannerViewModel = koinViewModel()
+    val viewModelGatt: BleGattViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -68,7 +73,10 @@ fun BLEListScreen() {
                     title = "Dispositivos BLE"
                 ) { device ->
                     BLEDeviceCard(
-                        device = device
+                        device = device,
+                        onClick = { device ->
+                            navToDetail(device)
+                        }
                     )
                 }
             }

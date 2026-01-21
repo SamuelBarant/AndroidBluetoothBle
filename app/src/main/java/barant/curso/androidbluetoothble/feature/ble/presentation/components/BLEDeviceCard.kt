@@ -18,6 +18,7 @@ import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceType
 fun BLEDeviceCard(
     device: BLEDevice,
     modifier: Modifier = Modifier,
+    onClick: (BLEDevice) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -31,7 +32,8 @@ fun BLEDeviceCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(12.dp)
+                .clickable{ onClick(device) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Icono del tipo de dispositivo

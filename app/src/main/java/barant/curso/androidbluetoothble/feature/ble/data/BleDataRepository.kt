@@ -2,8 +2,10 @@ package barant.curso.androidbluetoothble.feature.ble.data
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGattCharacteristic
+import android.bluetooth.BluetoothManager
 import android.util.Log
 import androidx.annotation.RequiresPermission
 import barant.curso.androidbluetoothble.feature.ble.data.gatt.BleGattDataSource
@@ -83,4 +85,8 @@ class BleDataRepository (
     override fun getCharacteristic(serviceUuid: UUID, characteristicUuid: UUID) =
         gatt.getCharacteristic(serviceUuid, characteristicUuid)
 
+    override fun getBluetoothDevice(mac: String): BluetoothDevice {
+        val adapter = BluetoothAdapter.getDefaultAdapter()
+        return adapter.getRemoteDevice(mac)
+    }
 }

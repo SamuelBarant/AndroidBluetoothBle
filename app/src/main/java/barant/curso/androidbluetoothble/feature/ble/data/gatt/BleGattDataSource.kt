@@ -11,7 +11,7 @@ import java.util.UUID
 import kotlin.coroutines.resume
 
 class BleGattDataSource(
-    private val context: Context) {
+    private val context: Context){
 
     private var gatt: BluetoothGatt? = null
 
@@ -123,4 +123,6 @@ class BleGattDataSource(
     fun getCharacteristic(serviceUuid: UUID, characteristicUuid: UUID): BluetoothGattCharacteristic? {
         return gatt?.getService(serviceUuid)?.getCharacteristic(characteristicUuid)
     }
+
+
 }

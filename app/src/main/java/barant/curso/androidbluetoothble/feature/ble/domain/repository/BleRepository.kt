@@ -17,4 +17,6 @@ interface BleRepository {
     suspend fun writeCharacteristic(characteristic: BluetoothGattCharacteristic, data: ByteArray): Boolean
     fun disconnect()
     fun getCharacteristic(serviceUuid: UUID, characteristicUuid: UUID): BluetoothGattCharacteristic?
+    fun getBluetoothDevice(mac: String): BluetoothDevice
+
 }
