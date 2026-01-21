@@ -1,6 +1,7 @@
 package barant.curso.androidbluetoothble.feature.ble.data
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGattCharacteristic
 import android.util.Log
@@ -36,6 +37,7 @@ class BleDataRepository (
         }
     }
 
+    @SuppressLint("MissingPermission")
     @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
     override suspend fun startScan(): Result<List<BLEDevice>> {
         return try {
