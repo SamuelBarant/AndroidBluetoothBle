@@ -1,8 +1,6 @@
 package barant.curso.androidbluetoothble.feature.ble.presentation.detail
 
-import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGattCharacteristic
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
@@ -13,22 +11,19 @@ import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleDisco
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleGetGattUseCase
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleReadGattUseCase
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleWriteGattUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.UUID
 
-class BleGattViewModel (
+class BleGattViewModel(
     private val discoverUseCase: BleDiscoverGattUseCase,
     private val connectUseCase: BleConnectGattUseCase,
     private val disconnectUseCase: BleDisconnectGattUseCase,
     private val readUseCase: BleReadGattUseCase,
     private val writeUseCase: BleWriteGattUseCase,
     private val getUseCase: BleGetGattUseCase
-): ViewModel(){
+) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState(isLoading = false))
     val uiState: StateFlow<UiState> = _uiState
 

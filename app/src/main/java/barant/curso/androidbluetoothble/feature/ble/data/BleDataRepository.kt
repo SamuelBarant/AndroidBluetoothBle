@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGattCharacteristic
-import android.bluetooth.BluetoothManager
 import android.util.Log
 import androidx.annotation.RequiresPermission
 import barant.curso.androidbluetoothble.feature.ble.data.gatt.BleGattDataSource
@@ -16,14 +15,13 @@ import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceConnecti
 import barant.curso.androidbluetoothble.feature.ble.domain.repository.BleRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeout
-import java.lang.Exception
 import java.util.UUID
 
-class BleDataRepository (
+class BleDataRepository(
     private val permissions: BlePermissionDataSource,
     private val scanner: BleScannerDataSource,
     private val gatt: BleGattDataSource
-): BleRepository{
+) : BleRepository {
     override suspend fun checkPermissions(): Result<Map<String, Boolean>> {
         return try {
             val status = permissions.hasPermissions()
@@ -34,7 +32,7 @@ class BleDataRepository (
             } else {
                 Result.failure(Exception("Faltan permisos: ${missing.joinToString()}"))
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
@@ -50,7 +48,7 @@ class BleDataRepository (
             }
 
             val bleDevices: List<BLEDevice> = scanner.devices.value.map { it.toUi() }
-            Log.d("@BLERepo",bleDevices.toString())
+            Log.d("@BLERepo", bleDevices.toString())
             Result.success(bleDevices)
         } catch (e: Exception) {
             Result.failure(e)
@@ -62,7 +60,7 @@ class BleDataRepository (
         return try {
             scanner.stopScan()
             Result.success(true)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
@@ -76,7 +74,10 @@ class BleDataRepository (
     override suspend fun readCharacteristic(characteristic: BluetoothGattCharacteristic) =
         gatt.readCharacteristic(characteristic)
 
-    override suspend fun writeCharacteristic(characteristic: BluetoothGattCharacteristic, data: ByteArray) =
+    override suspend fun writeCharacteristic(
+        characteristic: BluetoothGattCharacteristic,
+        data: ByteArray
+    ) =
         gatt.writeCharacteristic(characteristic, data)
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)

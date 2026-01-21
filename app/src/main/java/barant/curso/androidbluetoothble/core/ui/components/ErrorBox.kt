@@ -15,14 +15,18 @@ import androidx.compose.ui.unit.dp
 fun ErrorBox(
     errorLabel: String,
     modifier: Modifier = Modifier
-){
+) {
     if (errorLabel.isNotEmpty()) {
         Box(
-            modifier = modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+            modifier = modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                modifier = Modifier.align(Alignment.Center).padding(10.dp),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(10.dp),
                 text = errorLabel,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground

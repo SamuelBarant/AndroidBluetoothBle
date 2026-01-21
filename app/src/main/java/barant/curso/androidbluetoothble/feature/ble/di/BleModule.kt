@@ -4,7 +4,6 @@ import barant.curso.androidbluetoothble.feature.ble.data.BleDataRepository
 import barant.curso.androidbluetoothble.feature.ble.data.gatt.BleGattDataSource
 import barant.curso.androidbluetoothble.feature.ble.data.permissions.BlePermissionDataSource
 import barant.curso.androidbluetoothble.feature.ble.data.scanner.BleScannerDataSource
-import barant.curso.androidbluetoothble.feature.ble.domain.useCase.permissions.BlePermissionsUseCase
 import barant.curso.androidbluetoothble.feature.ble.domain.repository.BleRepository
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleConnectGattUseCase
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleDisconnectGattUseCase
@@ -12,6 +11,7 @@ import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleDisco
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleGetGattUseCase
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleReadGattUseCase
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.gatt.BleWriteGattUseCase
+import barant.curso.androidbluetoothble.feature.ble.domain.useCase.permissions.BlePermissionsUseCase
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.scanner.BleStartScannerUseCase
 import barant.curso.androidbluetoothble.feature.ble.domain.useCase.scanner.BleStopScannerUseCase
 import barant.curso.androidbluetoothble.feature.ble.presentation.detail.BleGattViewModel

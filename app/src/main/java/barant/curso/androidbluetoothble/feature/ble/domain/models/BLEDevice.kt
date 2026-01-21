@@ -16,4 +16,4 @@ data class BLEDevice(
     val type: DeviceType,
     val mtu: Int,
     val isConnected: Boolean = false
-): Parcelable
+) : Parcelable

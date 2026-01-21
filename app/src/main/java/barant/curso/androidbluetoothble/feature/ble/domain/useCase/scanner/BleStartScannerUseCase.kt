@@ -8,7 +8,7 @@ class BleStartScannerUseCase(
     private val repository: BleRepository
 ) {
     suspend operator fun invoke(): Result<List<BLEDevice>> {
-        Log.d("@BLEUseCase",repository.startScan().toString())
+        Log.d("@BLEUseCase", repository.startScan().toString())
         return repository.startScan()
     }
 }

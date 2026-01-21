@@ -9,18 +9,18 @@ import kotlinx.coroutines.launch
 
 class BlePermissionViewModel(
     private val permissionUseCase: BlePermissionsUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState(isLoading = true))
     val uiState: StateFlow<UiState> = _uiState
 
-    fun checkPermissions(){
+    fun checkPermissions() {
         viewModelScope.launch {
             _uiState.value = UiState(isLoading = true)
             val result = permissionUseCase()
             result.fold(
-                onSuccess = {granted ->
+                onSuccess = { granted ->
                     val missing = granted.filter { !it.value }.map { it.key }
-                    if (missing.isEmpty()){
+                    if (missing.isEmpty()) {
                         _uiState.value = UiState(
                             isLoading = false,
                             error = ""
@@ -32,7 +32,7 @@ class BlePermissionViewModel(
                         )
                     }
                 },
-                onFailure = {error ->
+                onFailure = { error ->
                     _uiState.value = UiState(error = error.message ?: "Error desconocido")
                 }
             )

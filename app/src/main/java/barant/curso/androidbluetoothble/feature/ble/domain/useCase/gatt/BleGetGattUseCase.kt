@@ -7,11 +7,14 @@ import java.util.UUID
 class BleGetGattUseCase(
     private val repository: BleRepository
 ) {
-    suspend operator fun invoke(serviceUuid: UUID, characteristicUuid: UUID): Result<BluetoothGattCharacteristic?>{
+    suspend operator fun invoke(
+        serviceUuid: UUID,
+        characteristicUuid: UUID
+    ): Result<BluetoothGattCharacteristic?> {
         return try {
             val state = repository.getCharacteristic(serviceUuid, characteristicUuid)
             Result.success(state)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }

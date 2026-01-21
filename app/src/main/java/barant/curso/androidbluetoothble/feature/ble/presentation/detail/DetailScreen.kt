@@ -1,6 +1,5 @@
 package barant.curso.androidbluetoothble.feature.ble.presentation.detail
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,8 +33,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import barant.curso.androidbluetoothble.R
 import barant.curso.androidbluetoothble.core.ui.components.AppTopBar
-import barant.curso.androidbluetoothble.feature.ble.presentation.components.CharacteristicsList
 import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
+import barant.curso.androidbluetoothble.feature.ble.presentation.components.CharacteristicsList
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -121,7 +120,7 @@ fun BLEDetailScreen(
 
                 Box(
                     modifier = Modifier.fillMaxWidth()
-                ){
+                ) {
                     OutlinedButton(
                         modifier = Modifier
                             .fillMaxWidth(0.5f)
@@ -131,7 +130,10 @@ fun BLEDetailScreen(
                             ledCharacteristic?.let { characteristic ->
                                 scope.launch {
                                     val value = if (ledOn) 0.toByte() else 1.toByte()
-                                    val success = viewModel.writeCharacteristic(characteristic, byteArrayOf(value))
+                                    val success = viewModel.writeCharacteristic(
+                                        characteristic,
+                                        byteArrayOf(value)
+                                    )
                                     if (success) {
                                         ledOn = !ledOn
                                     }

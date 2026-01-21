@@ -43,7 +43,7 @@ fun AppNavigation() {
                 ?.savedStateHandle
                 ?.get<BLEDevice>("device")
 
-            BLEDetailScreen(device = device){
+            BLEDetailScreen(device = device) {
                 navController.navigate(Routes.List.route)
             }
         }

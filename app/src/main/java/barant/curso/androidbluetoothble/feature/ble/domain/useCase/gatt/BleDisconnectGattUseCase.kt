@@ -5,7 +5,7 @@ import barant.curso.androidbluetoothble.feature.ble.domain.repository.BleReposit
 class BleDisconnectGattUseCase(
     private val repository: BleRepository
 ) {
-    suspend operator fun invoke(){
+    suspend operator fun invoke() {
         return repository.disconnect()
     }
 }

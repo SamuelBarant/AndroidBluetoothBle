@@ -5,7 +5,7 @@ import barant.curso.androidbluetoothble.feature.ble.domain.repository.BleReposit
 class BleStopScannerUseCase(
     private val repository: BleRepository
 ) {
-    suspend operator fun invoke(): Result<Boolean>{
+    suspend operator fun invoke(): Result<Boolean> {
         return repository.stopScan()
     }
 }

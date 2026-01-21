@@ -2,15 +2,33 @@ package barant.curso.androidbluetoothble.feature.ble.presentation.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.DevicesOther
+import androidx.compose.material.icons.filled.HealthAndSafety
+import androidx.compose.material.icons.filled.Security
+import androidx.compose.material.icons.filled.Sensors
+import androidx.compose.material.icons.filled.SignalCellularAlt
+import androidx.compose.material.icons.filled.SignalCellularAlt1Bar
+import androidx.compose.material.icons.filled.SignalCellularAlt2Bar
+import androidx.compose.material.icons.filled.SignalCellularOff
+import androidx.compose.material.icons.filled.Speaker
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
 import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceType
 
@@ -33,7 +51,7 @@ fun BLEDeviceCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(12.dp)
-                .clickable{ onClick(device) },
+                .clickable { onClick(device) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Icono del tipo de dispositivo

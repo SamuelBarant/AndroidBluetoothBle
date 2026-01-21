@@ -6,7 +6,7 @@ import barant.curso.androidbluetoothble.feature.ble.di.bleModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class MainApplication: Application() {
+class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 

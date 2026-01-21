@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class BleScannerViewModel(
     private val startUseCase: BleStartScannerUseCase,
     private val stopUseCase: BleStopScannerUseCase
-) : ViewModel(){
+) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState(isLoading = false))
     val uiState: StateFlow<UiState> = _uiState
 
@@ -26,7 +26,7 @@ class BleScannerViewModel(
 
             try {
                 val result = startUseCase()
-                Log.d("@BLEResult",result.toString())
+                Log.d("@BLEResult", result.toString())
 
                 result.fold(
                     onSuccess = {

@@ -1,8 +1,12 @@
 package barant.curso.androidbluetoothble.feature.ble.data.gatt
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.bluetooth.*
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothGatt
+import android.bluetooth.BluetoothGattCallback
+import android.bluetooth.BluetoothGattCharacteristic
+import android.bluetooth.BluetoothGattService
+import android.bluetooth.BluetoothProfile
 import android.content.Context
 import androidx.annotation.RequiresPermission
 import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceConnectionState
@@ -24,7 +28,11 @@ class BleGattDataSource(
         suspendCancellableCoroutine { cont ->
             gatt = device.connectGatt(context, false, object : BluetoothGattCallback() {
 
-                override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
+                override fun onConnectionStateChange(
+                    gatt: BluetoothGatt,
+                    status: Int,
+                    newState: Int
+                ) {
                     if (newState == BluetoothProfile.STATE_CONNECTED) {
                         // Descubrir servicios automáticamente después de conectar
                         gatt.discoverServices()
@@ -75,7 +83,10 @@ class BleGattDataSource(
         }
 
     @SuppressLint("MissingPermission")
-    suspend fun writeCharacteristic(characteristic: BluetoothGattCharacteristic, data: ByteArray): Boolean =
+    suspend fun writeCharacteristic(
+        characteristic: BluetoothGattCharacteristic,
+        data: ByteArray
+    ): Boolean =
         suspendCancellableCoroutine { cont ->
             gatt?.let { g ->
                 writeContinuation = { success -> cont.resume(success) }
@@ -121,7 +132,10 @@ class BleGattDataSource(
         gatt = null
     }
 
-    fun getCharacteristic(serviceUuid: UUID, characteristicUuid: UUID): BluetoothGattCharacteristic? {
+    fun getCharacteristic(
+        serviceUuid: UUID,
+        characteristicUuid: UUID
+    ): BluetoothGattCharacteristic? {
         return gatt?.getService(serviceUuid)?.getCharacteristic(characteristicUuid)
     }
 }

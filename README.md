@@ -1,13 +1,17 @@
 # AndroidBluetoothBle
 
-Proyecto práctico de DAM cuyo objetivo es establecer una comunicación **Bluetooth Low Energy (BLE)** entre una **aplicación Android** y una **Arduino Nano 33 BLE**, permitiendo enviar comandos desde el móvil y ejecutar acciones en el microcontrolador.
+Proyecto práctico de DAM cuyo objetivo es establecer una comunicación **Bluetooth Low Energy (BLE)**
+entre una **aplicación Android** y una **Arduino Nano 33 BLE**, permitiendo enviar comandos desde el
+móvil y ejecutar acciones en el microcontrolador.
 
 ## 🧩 Descripción del proyecto
 
-La aplicación Android actúa como **cliente BLE**, escaneando dispositivos cercanos, conectándose a la Arduino Nano 33 BLE y escribiendo datos en una característica BLE.  
+La aplicación Android actúa como **cliente BLE**, escaneando dispositivos cercanos, conectándose a
+la Arduino Nano 33 BLE y escribiendo datos en una característica BLE.  
 La Arduino recibe estos datos y realiza una acción concreta (por ejemplo, encender o apagar un LED).
 
 Este proyecto sirve como introducción práctica a:
+
 - Comunicación BLE en Android
 - Uso de servicios y características GATT
 - Integración Android ↔ hardware (IoT básico)
@@ -23,12 +27,14 @@ Este proyecto sirve como introducción práctica a:
 ## 🛠️ Tecnologías utilizadas
 
 ### Android
+
 - Kotlin
 - Android Studio
 - Bluetooth Low Energy (BLE)
 - API Bluetooth GATT
 
 ### Hardware
+
 - Arduino Nano 33 BLE
 - Arduino IDE
 - Librería `ArduinoBLE`

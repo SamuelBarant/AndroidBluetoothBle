@@ -20,7 +20,7 @@ fun BLECharacteristicsCard(
     text: String,
     icon: ImageVector,
     label: String
-){
+) {
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = Modifier
@@ -28,12 +28,12 @@ fun BLECharacteristicsCard(
             .padding(5.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary)
     ) {
-        Column (
+        Column(
             modifier = Modifier.padding(10.dp),
-        ){
-            Row (
+        ) {
+            Row(
                 verticalAlignment = Alignment.CenterVertically,
-            ){
+            ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = label,

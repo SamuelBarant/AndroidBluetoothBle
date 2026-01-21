@@ -20,10 +20,10 @@ import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
 fun CharacteristicsList(
     modifier: Modifier,
     item: BLEDevice
-){
-    LazyColumn (
+) {
+    LazyColumn(
         modifier = modifier
-    ){
+    ) {
         item {
             Text(
                 modifier = Modifier.padding(bottom = 5.dp),
@@ -31,7 +31,7 @@ fun CharacteristicsList(
                 text = stringResource(id = R.string.detail_section_detail_character)
             )
         }
-        item{
+        item {
             BLECharacteristicsCard(
                 text = "${item.signal} dBm",
                 icon = Icons.Default.SignalCellularAlt,

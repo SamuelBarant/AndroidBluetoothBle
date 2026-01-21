@@ -1,11 +1,16 @@
 package barant.curso.androidbluetoothble.feature.ble.presentation.list
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BluetoothAudio
 import androidx.compose.material.icons.filled.DeviceHub
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -63,9 +68,11 @@ fun BLEListScreen(
             uiState.isLoading -> {
                 ErrorBox(errorLabel = "Cargando ...")
             }
+
             uiState.error != null -> {
                 ErrorBox(errorLabel = uiState.error!!.message ?: "Error desconocido")
             }
+
             uiState.data.isNotEmpty() -> {
                 GenericList(
                     modifier = Modifier.padding(paddingValues),
@@ -80,6 +87,7 @@ fun BLEListScreen(
                     )
                 }
             }
+
             else -> {
                 ErrorBox(errorLabel = "No se encontraron dispositivos")
             }

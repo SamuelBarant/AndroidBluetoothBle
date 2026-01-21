@@ -11,18 +11,17 @@ import android.util.Log
 import androidx.annotation.RequiresPermission
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class BleScannerDataSource (
+class BleScannerDataSource(
     context: Context,
     private val dispatcher: CoroutineDispatcher
 
-){
+) {
     private var onConnect: ((BluetoothDevice) -> Unit)? = null
 
     val adapter = checkNotNull(context.getSystemService(BluetoothManager::class.java).adapter)
@@ -37,11 +36,11 @@ class BleScannerDataSource (
         .setScanMode(ScanSettings.SCAN_MODE_BALANCED)
         .build()
 
-    private val scanCallBack = object : ScanCallback(){
+    private val scanCallBack = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult) {
             val device = result.device
 
-            if (_devices.value.none { it.address == device.address }){
+            if (_devices.value.none { it.address == device.address }) {
                 _devices.value = _devices.value + device
             }
         }
@@ -53,7 +52,7 @@ class BleScannerDataSource (
     }
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
-    fun startScan(){
+    fun startScan() {
         if (_scanning.value) return
         if (!adapter.isEnabled) return
 
@@ -71,7 +70,7 @@ class BleScannerDataSource (
     }
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
-    fun stopScan(){
+    fun stopScan() {
         if (!_scanning.value) return
         _scanning.value = false
         adapter.bluetoothLeScanner.stopScan(scanCallBack)
