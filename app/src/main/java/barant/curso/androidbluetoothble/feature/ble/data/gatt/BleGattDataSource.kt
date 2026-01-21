@@ -11,32 +11,39 @@ import java.util.UUID
 import kotlin.coroutines.resume
 
 class BleGattDataSource(
-    private val context: Context){
+    private val context: Context
+) {
 
     private var gatt: BluetoothGatt? = null
+    private var writeContinuation: ((Boolean) -> Unit)? = null
+    private var readContinuation: ((ByteArray) -> Unit)? = null
+    private var discoverContinuation: ((List<BluetoothGattService>) -> Unit)? = null
 
-    /** Conecta al dispositivo y espera hasta que se conecte o falle */
     @SuppressLint("MissingPermission")
     suspend fun connect(device: BluetoothDevice): DeviceConnectionState =
         suspendCancellableCoroutine { cont ->
-
             gatt = device.connectGatt(context, false, object : BluetoothGattCallback() {
 
                 override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
                     if (newState == BluetoothProfile.STATE_CONNECTED) {
-                        val state = DeviceConnectionState(
-                            gatt = gatt,
-                            connectionState = newState,
-                            services = gatt.services
-                        )
-                        cont.resume(state)
+                        // Descubrir servicios automáticamente después de conectar
+                        gatt.discoverServices()
                     } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                         cont.resume(DeviceConnectionState(gatt, newState))
                     }
                 }
 
                 override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
-                    // opcional: se puede usar si quieres suspender discoverServices
+                    if (status == BluetoothGatt.GATT_SUCCESS) {
+                        val state = DeviceConnectionState(
+                            gatt = gatt,
+                            connectionState = BluetoothProfile.STATE_CONNECTED,
+                            services = gatt.services
+                        )
+                        cont.resume(state)
+                        discoverContinuation?.invoke(gatt.services)
+                        discoverContinuation = null
+                    }
                 }
 
                 override fun onCharacteristicRead(
@@ -44,7 +51,10 @@ class BleGattDataSource(
                     characteristic: BluetoothGattCharacteristic,
                     status: Int
                 ) {
-                    // opcional: suspender read
+                    if (status == BluetoothGatt.GATT_SUCCESS) {
+                        readContinuation?.invoke(characteristic.value ?: ByteArray(0))
+                        readContinuation = null
+                    }
                 }
 
                 override fun onCharacteristicWrite(
@@ -52,8 +62,10 @@ class BleGattDataSource(
                     characteristic: BluetoothGattCharacteristic,
                     status: Int
                 ) {
-                    // opcional: suspender write
+                    writeContinuation?.invoke(status == BluetoothGatt.GATT_SUCCESS)
+                    writeContinuation = null
                 }
+
             })
 
             cont.invokeOnCancellation {
@@ -62,58 +74,47 @@ class BleGattDataSource(
             }
         }
 
-    /** Descubre servicios de forma suspend */
-    @SuppressLint("MissingPermission")
-    suspend fun discoverServices(): List<BluetoothGattService> =
-        suspendCancellableCoroutine { cont ->
-            gatt?.let { g ->
-                g.discoverServices()
-                val callback = object : BluetoothGattCallback() {
-                    override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
-                        cont.resume(gatt.services)
-                    }
-                }
-            } ?: cont.resume(emptyList())
-        }
-
-    /** Leer característica de forma suspend */
-    @SuppressLint("MissingPermission")
-    suspend fun readCharacteristic(characteristic: BluetoothGattCharacteristic): ByteArray =
-        suspendCancellableCoroutine { cont ->
-            gatt?.let { g ->
-                g.readCharacteristic(characteristic)
-                val callback = object : BluetoothGattCallback() {
-                    override fun onCharacteristicRead(
-                        gatt: BluetoothGatt,
-                        characteristic: BluetoothGattCharacteristic,
-                        status: Int
-                    ) {
-                        cont.resume(characteristic.value)
-                    }
-                }
-            } ?: cont.resume(ByteArray(0))
-        }
-
-    /** Escribir característica de forma suspend */
     @SuppressLint("MissingPermission")
     suspend fun writeCharacteristic(characteristic: BluetoothGattCharacteristic, data: ByteArray): Boolean =
         suspendCancellableCoroutine { cont ->
             gatt?.let { g ->
+                writeContinuation = { success -> cont.resume(success) }
                 characteristic.value = data
-                g.writeCharacteristic(characteristic)
-                val callback = object : BluetoothGattCallback() {
-                    override fun onCharacteristicWrite(
-                        gatt: BluetoothGatt,
-                        characteristic: BluetoothGattCharacteristic,
-                        status: Int
-                    ) {
-                        cont.resume(status == BluetoothGatt.GATT_SUCCESS)
-                    }
+                val started = g.writeCharacteristic(characteristic)
+                if (!started) {
+                    writeContinuation = null
+                    cont.resume(false)
                 }
             } ?: cont.resume(false)
         }
 
-    @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
+    @SuppressLint("MissingPermission")
+    suspend fun discoverServices(): List<BluetoothGattService> =
+        suspendCancellableCoroutine { cont ->
+            gatt?.let { g ->
+                discoverContinuation = { services -> cont.resume(services) }
+                val started = g.discoverServices()
+                if (!started) {
+                    discoverContinuation = null
+                    cont.resume(emptyList())
+                }
+            } ?: cont.resume(emptyList())
+        }
+
+    @SuppressLint("MissingPermission")
+    suspend fun readCharacteristic(characteristic: BluetoothGattCharacteristic): ByteArray =
+        suspendCancellableCoroutine { cont ->
+            gatt?.let { g ->
+                readContinuation = { data -> cont.resume(data) }
+                val started = g.readCharacteristic(characteristic)
+                if (!started) {
+                    readContinuation = null
+                    cont.resume(ByteArray(0))
+                }
+            } ?: cont.resume(ByteArray(0))
+        }
+
+    @RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT)
     fun disconnect() {
         gatt?.disconnect()
         gatt?.close()
@@ -123,6 +124,4 @@ class BleGattDataSource(
     fun getCharacteristic(serviceUuid: UUID, characteristicUuid: UUID): BluetoothGattCharacteristic? {
         return gatt?.getService(serviceUuid)?.getCharacteristic(characteristicUuid)
     }
-
-
 }

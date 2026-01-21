@@ -1,6 +1,8 @@
 package barant.curso.androidbluetoothble.feature.ble.presentation.detail
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,15 +24,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import barant.curso.androidbluetoothble.R
 import barant.curso.androidbluetoothble.core.ui.components.AppTopBar
 import barant.curso.androidbluetoothble.feature.ble.presentation.components.CharacteristicsList
 import barant.curso.androidbluetoothble.feature.ble.domain.models.BLEDevice
-import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceType
+import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -39,6 +45,8 @@ fun BLEDetailScreen(
     onBack: () -> Unit
 ) {
     val viewModel: BleGattViewModel = koinViewModel()
+    val scope = rememberCoroutineScope()
+    var ledOn by remember { mutableStateOf(false) }
 
     LaunchedEffect(device) {
         device?.let {
@@ -86,7 +94,6 @@ fun BLEDetailScreen(
                 .fillMaxHeight()
         ) {
 
-            // 🔹 Estado de conexión
             if (uiState.isLoading) {
                 Text("Conectando al dispositivo...")
             } else if (uiState.error != null) {
@@ -99,27 +106,53 @@ fun BLEDetailScreen(
                     style = MaterialTheme.typography.titleMedium,
                     text = if (connected) "Conectado" else "Desconectado"
                 )
-                // 🔹 Lista de servicios y características
+
                 CharacteristicsList(
                     item = device?.copy(isConnected = connected) ?: return@Column,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
                 )
-                OutlinedButton(
-                    modifier = Modifier,
-                    onClick = {},
-                    border = if (connected)
-                        BorderStroke(1.dp, MaterialTheme.colorScheme.error)
-                    else
-                        BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
-                ) {
-                    Text(
-                        text = "ON"
-                    )
+
+                val ledCharacteristic = uiState.data?.services
+                    ?.find { it.uuid.toString() == "12345678-1234-1234-1234-1234567890ab" }
+                    ?.characteristics
+                    ?.find { it.uuid.toString() == "87654321-4321-4321-4321-ba0987654321" }
+
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ){
+                    OutlinedButton(
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .padding(vertical = 14.dp)
+                            .align(Alignment.Center),
+                        onClick = {
+                            ledCharacteristic?.let { characteristic ->
+                                scope.launch {
+                                    val value = if (ledOn) 0.toByte() else 1.toByte()
+                                    val success = viewModel.writeCharacteristic(characteristic, byteArrayOf(value))
+                                    if (success) {
+                                        ledOn = !ledOn
+                                    }
+                                }
+                            }
+                        },
+                        border = if (ledOn)
+                            BorderStroke(1.dp, MaterialTheme.colorScheme.error)
+                        else
+                            BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
+                    ) {
+                        Text(
+                            text = if (ledOn) "OFF" else "ON",
+                            color = if (ledOn)
+                                MaterialTheme.colorScheme.error
+                            else
+                                MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
 
-                // 🔹 Botón de acción (conectar / desconectar)
                 OutlinedButton(
                     modifier = Modifier
                         .fillMaxWidth()

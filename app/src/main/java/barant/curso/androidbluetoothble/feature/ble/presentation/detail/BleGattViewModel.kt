@@ -116,30 +116,15 @@ class BleGattViewModel (
         }
     }
 
-    fun writeCharacteristic(
+    suspend fun writeCharacteristic(
         characteristic: BluetoothGattCharacteristic,
         data: ByteArray
-    ) {
-        viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, error = null) }
-
+    ): Boolean {
+        return try {
             val result = writeUseCase(characteristic, data)
-
-            result.fold(
-                onSuccess = {
-                    _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            data = it.data?.copy(messageSent = data)
-                        )
-                    }
-                },
-                onFailure = { error ->
-                    _uiState.update {
-                        it.copy(isLoading = false, error = error)
-                    }
-                }
-            )
+            result.getOrDefault(false)
+        } catch (e: Exception) {
+            false
         }
     }
 
