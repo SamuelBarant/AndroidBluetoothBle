@@ -29,9 +29,6 @@ class BleScannerDataSource (
     private val _devices = MutableStateFlow<List<BluetoothDevice>>(emptyList())
     val devices: StateFlow<List<BluetoothDevice>> = _devices
 
-    val pairedDevices: MutableList<BluetoothDevice> = adapter.bondedDevices.toMutableList()
-    val sampleServerDevices = mutableListOf<BluetoothDevice>()
-
     val scanSettings: ScanSettings = ScanSettings.Builder()
         .setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES)
         .setScanMode(ScanSettings.SCAN_MODE_BALANCED)
@@ -43,10 +40,6 @@ class BleScannerDataSource (
 
             if (_devices.value.none { it.address == device.address }){
                 _devices.value = _devices.value + device
-            }
-
-            if (!sampleServerDevices.contains(device)){
-                sampleServerDevices.add(device)
             }
         }
 
@@ -62,7 +55,6 @@ class BleScannerDataSource (
 
         _scanning.value = true
         _devices.value = emptyList()
-        sampleServerDevices.clear()
 
         adapter.bluetoothLeScanner.startScan(null, scanSettings, scanCallBack)
 

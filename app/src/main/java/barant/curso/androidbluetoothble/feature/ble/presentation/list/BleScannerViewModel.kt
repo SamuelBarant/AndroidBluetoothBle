@@ -1,6 +1,7 @@
 package barant.curso.androidbluetoothble.feature.ble.presentation.list
 
 import android.bluetooth.BluetoothDevice
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
@@ -26,16 +27,17 @@ class BleScannerViewModel(
 
             try {
                 val result = startUseCase()
+                Log.d("@BLEResult",result.toString())
 
                 result.fold(
                     onSuccess = {
-                        UiState(
+                        _uiState.value = UiState(
                             isLoading = false,
                             data = it
                         )
                     },
                     onFailure = {
-                        UiState(
+                        _uiState.value = UiState(
                             isLoading = false,
                             error = it
                         )

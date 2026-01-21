@@ -1,6 +1,7 @@
 package barant.curso.androidbluetoothble.feature.ble.data
 
 import android.bluetooth.BluetoothDevice
+import android.util.Log
 import barant.curso.androidbluetoothble.feature.ble.data.permissions.BlePermissionDataSource
 import barant.curso.androidbluetoothble.feature.ble.data.scanner.BleScannerDataSource
 import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
@@ -37,7 +38,7 @@ class BleDataRepository (
             }
 
             val bleDevices: List<BLEDevice> = scanner.devices.value.map { it.toUi() }
-
+            Log.d("@BLERepo",bleDevices.toString())
             Result.success(bleDevices)
         } catch (e: Exception) {
             Result.failure(e)
