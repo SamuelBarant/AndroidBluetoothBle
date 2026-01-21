@@ -22,10 +22,12 @@ class BlePermissionViewModel(
                     val missing = granted.filter { !it.value }.map { it.key }
                     if (missing.isEmpty()){
                         _uiState.value = UiState(
+                            isLoading = false,
                             error = ""
                         )
                     } else {
                         _uiState.value = UiState(
+                            isLoading = false,
                             error = "Faltan permisos: ${missing.joinToString()}"
                         )
                     }

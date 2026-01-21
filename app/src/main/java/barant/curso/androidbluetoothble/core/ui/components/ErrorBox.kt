@@ -1,5 +1,6 @@
 package barant.curso.androidbluetoothble.core.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,7 +18,7 @@ fun ErrorBox(
 ){
     if (errorLabel.isNotEmpty()) {
         Box(
-            modifier = modifier.padding(16.dp).fillMaxSize(),
+            modifier = modifier.padding(16.dp).fillMaxSize().background(MaterialTheme.colorScheme.primary),
             contentAlignment = Alignment.Center
         ) {
             Text(

@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import barant.curso.androidbluetoothble.core.ui.navigation.AppNavigation
 import barant.curso.androidbluetoothble.core.ui.theme.AndroidBluetoothBleTheme
 import barant.curso.androidbluetoothble.feature.ble.presentation.detail.DetailScreen
 import barant.curso.androidbluetoothble.feature.ble.presentation.list.BLEListScreen
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndroidBluetoothBleTheme {
-                PermissionScreen()
+                AppNavigation()
             }
         }
     }
