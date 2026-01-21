@@ -67,7 +67,10 @@ fun BLEListScreen() {
                     items = uiState.data,
                     title = "Dispositivos BLE"
                 ) { device ->
-                    BLEDeviceCard(device)
+                    BLEDeviceCard(
+                        device = device,
+                        onClick =
+                    )
                 }
             }
             else -> {

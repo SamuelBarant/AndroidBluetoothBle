@@ -1,6 +1,7 @@
 package barant.curso.androidbluetoothble.feature.ble.presentation.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
@@ -16,13 +17,15 @@ import barant.curso.androidbluetoothble.feature.ble.domain.models.DeviceType
 @Composable
 fun BLEDeviceCard(
     device: BLEDevice,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: (BLEDevice) -> Unit = {}
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
-            .border(0.5.dp, Color.White, MaterialTheme.shapes.small),
+            .border(0.5.dp, Color.White, MaterialTheme.shapes.small)
+            .clickable {onClick(device)},
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         )
