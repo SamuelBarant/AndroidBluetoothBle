@@ -2,7 +2,7 @@ package barant.curso.androidbluetoothble.feature.ble.presentation.permissions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import barant.curso.androidbluetoothble.feature.ble.domain.permissions.BlePermissionsUseCase
+import barant.curso.androidbluetoothble.feature.ble.domain.useCase.BlePermissionsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package barant.curso.androidbluetoothble.feature.ble.domain.permissions
+package barant.curso.androidbluetoothble.feature.ble.domain.useCase
 
 import barant.curso.androidbluetoothble.feature.ble.domain.repository.BleRepository
 import java.lang.Exception

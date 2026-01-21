@@ -1,11 +1,17 @@
 package barant.curso.androidbluetoothble.feature.ble.data
 
+import android.bluetooth.BluetoothDevice
 import barant.curso.androidbluetoothble.feature.ble.data.permissions.BlePermissionDataSource
+import barant.curso.androidbluetoothble.feature.ble.data.scanner.BleScannerDataSource
+import barant.curso.androidbluetoothble.feature.ble.domain.BLEDevice
 import barant.curso.androidbluetoothble.feature.ble.domain.repository.BleRepository
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withTimeout
 import java.lang.Exception
 
 class BleDataRepository (
-    private val permissions: BlePermissionDataSource
+    private val permissions: BlePermissionDataSource,
+    private val scanner: BleScannerDataSource
 ): BleRepository{
     override suspend fun checkPermissions(): Result<Map<String, Boolean>> {
         return try {
@@ -17,6 +23,31 @@ class BleDataRepository (
             } else {
                 Result.failure(Exception("Faltan permisos: ${missing.joinToString()}"))
             }
+        } catch (e: Exception){
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun startScan(): Result<List<BLEDevice>> {
+        return try {
+            scanner.startScan()
+
+            withTimeout(16000) {
+                scanner.scanning.first { !it }
+            }
+
+            val bleDevices: List<BLEDevice> = scanner.devices.value.map { it.toUi() }
+
+            Result.success(bleDevices)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun stopScan(): Result<Boolean> {
+        return try {
+            scanner.stopScan()
+            Result.success(true)
         } catch (e: Exception){
             Result.failure(e)
         }
